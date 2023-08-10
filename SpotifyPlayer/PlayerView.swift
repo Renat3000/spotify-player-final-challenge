@@ -9,19 +9,14 @@ import UIKit
 
 class PlayerView: UIView {
     
-//    var stackView: UIStackView
     var topAnchorConstraint = NSLayoutConstraint()
     var centerYConstraint = NSLayoutConstraint()
     let buttonHeight: CGFloat = 40
     
     init() {
-//        stackView = makeStackView(withOrientation: .vertical)
-//        stackView.distribution = .fill
 
         super.init(frame: .zero)
-
         setupViews()
-        setupInitialOrientation()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -39,8 +34,6 @@ class PlayerView: UIView {
 
         let spotifyButton = makeSpotifyButton(withText: "PLAY ON SPOTIFY")
         
-//        addSubview(stackView)
-        
         addSubview(trackLabel)
         addSubview(albumLabel)
         addSubview(playButton)
@@ -49,9 +42,8 @@ class PlayerView: UIView {
         addSubview(previewEndLabel)
         addSubview(spotifyButton)
     
+        centerYConstraint = progressView.centerYAnchor.constraint(equalTo: centerYAnchor)
         topAnchorConstraint = trackLabel.topAnchor.constraint(equalTo: topAnchor, constant: 8)
-        centerYConstraint = trackLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
-//        trackLabel.topAnchor.constraint(equalTo: topAnchor, constant: 8).isActive = true
         trackLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8).isActive = true
         trackLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8).isActive = true
         
@@ -77,21 +69,8 @@ class PlayerView: UIView {
         spotifyButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         spotifyButton.topAnchor.constraint(equalTo: progressView.bottomAnchor, constant: 32).isActive = true
         spotifyButton.heightAnchor.constraint(equalToConstant: buttonHeight).isActive = true
-        
-//        stackView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-//        stackView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
     }
     
-    func setupInitialOrientation() {
-        
-        if UIDevice.current.orientation.isPortrait {
-            topAnchorConstraint.isActive = true
-            centerYConstraint.isActive = false
-        } else {
-            topAnchorConstraint.isActive = false
-            centerYConstraint.isActive = true
-        }
-    }
     override var intrinsicContentSize: CGSize {
         return CGSize(width: UIView.noIntrinsicMetric, height: 200)
     }
